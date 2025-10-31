@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    {% block table %}
+    <!-- table -->
+    <table class="table">
+        <thead class="thead-dark">
+            {% for col in menu_frame.columns[:] %}
+            <th scope="col">{{ col }}</th>
+            {% endfor %}
+        </thead>
+        <thbody>
+            {% for i in range(menu_frame['菜品ID'].count()) %}
+            <tr>
+                <th scope="row"> {{ menu_frame.values[i][0] }}</th>
+                {% for item in menu_frame.values[i][1:] %}
+                <td>{{ item }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </thbody>
+    </table>
+    {% endblock table %}
+
+    {% block pagination %}
+    <!-- pagination -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" onclick="li_left()"><a class="page-link" href="#"><i class="fas fa-angle-left"></i></a></li>
+            {% for i in range(1,4) %}
+            <li class="page-item" onclick='loc_page("{{ i }}")'><a class="page-link" href="#">{{ i }}</a></li>
+            {% endfor %}
+            <li class="page-item" onclick="li_right()"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
+        </ul>
+    </nav>
+    {% endblock pagination %}
+
+    {% block script %}
+    <!-- pagination javascript -->
+    <script src="{{ url_for('static', filename='js/pagination.js') }}" type="text/javascript"></script>
+    {% endblock script %}
+
+{% endblock content %}
